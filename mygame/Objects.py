@@ -44,22 +44,24 @@ class Bullet:
 
 #Objects define 
 class Object:
-    def __init__(self,x,y,image,width,height):
+    def __init__(self,x,y,image,width,height,hp):
         self.width = width
         self.height = height
         self.x = x
         self.y = y
         self.image = image
-        self.hp = 1
+        self.hp = hp
         self.bulletCount = 0
+    def set_hp(self,hp):
+        self.hp = hp
     def get_width(self):
         return self.width
     def get_height(self):
         return self.height
     def decrease_hp(self):
         self.hp -= 1
-        if(self.hp == 0):
-            del(self)
+    def get_hp(self):
+        return self.hp
     def get_pos(self):
         return [self.x , self.y]
     def move_left(self,speed):
@@ -81,7 +83,7 @@ class Object:
     
 class Bullet(Object):
     def __init__(self,x,y,image,width,height,owner):
-        super().__init__(x,y,image,width,height)
+        super().__init__(x,y,image,width,height,0)
         self.owner = owner
     def move_down(self,speed):
         self.y += speed
@@ -91,8 +93,8 @@ class Bullet(Object):
         return self.owner
 
 class Alien(Object):
-    def __init__(self,x,y,image,width,height):
-        super().__init__(x,y,image,width,height)
+    def __init__(self,x,y,image,width,height,hp):
+        super().__init__(x,y,image,width,height,hp)
         self.vector = True
     def get_vector(self):
         return self.vector
